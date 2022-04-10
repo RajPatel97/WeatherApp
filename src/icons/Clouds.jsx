@@ -47,6 +47,7 @@ const CloudTwo = (props) => (
 );
 
 const Container = styled.svg`
+  z-index: 99;
   position: absolute;
   @keyframes move-around1 {
     0% {

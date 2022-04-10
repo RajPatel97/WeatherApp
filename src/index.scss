@@ -153,7 +153,8 @@ table {
  for the gradient background of the page 
 */
 body {
-  background: linear-gradient(to top right, #115da3, #2685bd, #4ecfed);
+  // background: linear-gradient(to top right, #115da3, #2685bd, #49cfed);
+  background: linear-gradient(to top right, #115da3, #49cfed);
   background-attachment: fixed;
   font-family: "Open Sans", sans-serif, -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
