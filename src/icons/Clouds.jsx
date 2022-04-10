@@ -78,6 +78,10 @@ const Container = styled.svg`
   &.cloud-two {
     animation: move-around2 35s infinite;
   }
+
+  @media screen and (max-width: 640px) {
+    /* visibility: hidden; */
+  }
 `;
 
 export { CloudOne, CloudTwo };

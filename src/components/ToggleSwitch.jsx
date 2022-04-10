@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { WiCelsius, WiFahrenheit } from "react-icons/wi";
 import { palette } from "../constants/colors";
 
 const ToggleSwitch = () => {
@@ -9,20 +8,22 @@ const ToggleSwitch = () => {
       <div className="toggle__slider">
         <p className="symbol left">&#176;C</p>
         <p className="symbol right">&#176;F</p>
-        {/* <WiCelsius className="symbol left" color="black" size={25} />
-        <WiFahrenheit className="symbol right" color="black" size={25} /> */}
       </div>
     </Toggle>
   );
 };
 
 const Toggle = styled.label`
+  position: absolute;
+  right: 80px;
+  top: 20px;
   /* display: inline-block; */
-  margin-right: 100px;
+  /* margin-right: 100px; */
   /* TODO: this is a temp fix above  */
   cursor: pointer;
 
   .symbol {
+    position: relative;
     display: flex;
     align-items: center;
     z-index: 9;

@@ -4,11 +4,12 @@ import { WiDayRainWind } from "react-icons/wi";
 import { palette } from "../constants/colors";
 import Dallas from "../assets/Dallas.png";
 import ToggleSwitch from "./ToggleSwitch";
+// import { breakpoints } from "../constants/mixins";
 
 const WeatherHeader = () => {
   return (
     <WeatherHeaderContainer>
-      <div className="left">
+      <div className="weather_Status">
         <p>93&#176;</p>
         <WiDayRainWind size={70}></WiDayRainWind>
         <ul>
@@ -16,7 +17,7 @@ const WeatherHeader = () => {
           <li>12 mph</li>
         </ul>
       </div>
-      <ToggleSwitch className="right" />
+      <ToggleSwitch />
     </WeatherHeaderContainer>
   );
 };
@@ -63,11 +64,8 @@ const Container = styled.div`
   z-index: 10;
   /* background-color: white; */
   /* width: 100%; */
-
-  .vl {
-    /* position: relative;
-    top: -2px; */
-    /* border-left: 1px solid lightgrey; */
+  @media screen and (max-width: 640px) {
+    width: 100%;
   }
 `;
 
@@ -79,10 +77,18 @@ const BackgroundImage = styled.img`
 
 const ForcastContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  /* flex-grow: 2; */
+
   /* going to eliminate the gap between the image and the forecast cards  */
   z-index: -1;
   position: relative;
   top: -3px;
+
+  @media screen and (max-width: 640px) {
+    width: 100%;
+  }
 `;
 
 const ForcastCard = styled.div`
@@ -93,7 +99,9 @@ const ForcastCard = styled.div`
   color: ${palette.darkGrey};
   background-color: ${palette.white};
   padding: 15px 20px 25px 20px;
-  width: 100%;
+  /* width: 100%; */
+  flex-grow: 1;
+
   border-left: 1px solid lightgrey;
 
   :nth-child(1) {
@@ -109,10 +117,15 @@ const ForcastCard = styled.div`
   .temp {
     font-size: 1.5rem;
   }
+  /* prioritizing flex box to make up 20% of container when it can */
+  @media screen and (max-width: 640px) {
+    flex-basis: 20%;
+    border: 1px solid lightgrey;
+  }
 `;
 
 const WeatherHeaderContainer = styled.div`
-  margin: 10px 0 0 30px;
+  /* margin: 10px 0 0 30px; */
   position: absolute;
   color: ${palette.blue};
   display: flex;
@@ -120,8 +133,9 @@ const WeatherHeaderContainer = styled.div`
   justify-content: space-between;
   width: 100%;
 
-  .left {
+  .weather_Status {
     display: flex;
+    margin: 10px 0 0 30px;
   }
 
   p {

@@ -26,5 +26,9 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+
+  @media screen and (max-width: 640px) {
+    width: 100vw;
+  }
 `;
 export default App;
