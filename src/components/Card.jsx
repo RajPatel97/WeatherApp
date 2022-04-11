@@ -1,62 +1,51 @@
-import styled from "styled-components";
-import { WiDayRainWind } from "react-icons/wi";
+import React from 'react';
+import styled from 'styled-components';
+import { WiDayRainWind } from 'react-icons/wi';
+import propTypes from 'prop-types';
 
-import { palette } from "../constants/colors";
-import Dallas from "../assets/Dallas.png";
-import ToggleSwitch from "./ToggleSwitch";
-// import { breakpoints } from "../constants/mixins";
+import { palette } from '../constants/colors';
+import Dallas from '../assets/Dallas.png';
+import ToggleSwitch from './ToggleSwitch';
+import { breakpoints } from '../constants/mixins';
+import WeatherCard from '../ui-components/WeatherCard';
+import WeatherStatus from '../ui-components/WeatherStatus';
 
-const WeatherHeader = () => {
+const Card = ({ currentWeather, forecastData }) => {
   return (
-    <WeatherHeaderContainer>
-      <div className="weather_Status">
-        <p>93&#176;</p>
-        <WiDayRainWind size={70}></WiDayRainWind>
-        <ul>
-          <li>partly cloudy</li>
-          <li>12 mph</li>
-        </ul>
+    <Container>
+      <div className="weather-header">
+        <WeatherStatus
+          temp={currentWeather.temp}
+          wind={currentWeather.wind}
+          weatherCondition={currentWeather.weatherCondition}
+          iconCode={currentWeather.iconCode}
+        >
+          <WiDayRainWind size={70}></WiDayRainWind>
+        </WeatherStatus>
+        <ToggleSwitch />
       </div>
-      <ToggleSwitch />
-    </WeatherHeaderContainer>
+
+      <BackgroundImage src={Dallas} />
+
+      <ForecastContainer>
+        {forecastData.map((day) => (
+          <WeatherCard
+            key={day.ts}
+            day={new Date(day.ts * 1000).toLocaleDateString('en-US', {
+              weekday: 'long',
+            })}
+            temp={day.temp}
+            iconCode={day.weather.code}
+          ></WeatherCard>
+        ))}
+      </ForecastContainer>
+    </Container>
   );
 };
 
-const Card = () => {
-  return (
-    <Container>
-      <WeatherHeader />
-      <BackgroundImage src={Dallas} />
-
-      <ForcastContainer>
-        <ForcastCard>
-          <p className="day">Thu</p>
-          <WiDayRainWind color={palette.blue} size={50}></WiDayRainWind>
-          <p className="temp">93&#176;</p>
-        </ForcastCard>
-        <ForcastCard>
-          <p className="day">Thu</p>
-          <WiDayRainWind color={palette.blue} size={50}></WiDayRainWind>
-          <p className="temp">93&#176;</p>
-        </ForcastCard>
-        <ForcastCard>
-          <p className="day">Thu</p>
-          <WiDayRainWind color={palette.blue} size={50}></WiDayRainWind>
-          <p className="temp">93&#176;</p>
-        </ForcastCard>
-        <ForcastCard>
-          <p className="day">Thu</p>
-          <WiDayRainWind color={palette.blue} size={50}></WiDayRainWind>
-          <p className="temp">93&#176;</p>
-        </ForcastCard>
-        <ForcastCard>
-          <p className="day">Thu</p>
-          <WiDayRainWind color={palette.blue} size={50}></WiDayRainWind>
-          <p className="temp">93&#176;</p>
-        </ForcastCard>
-      </ForcastContainer>
-    </Container>
-  );
+Card.propTypes = {
+  currentWeather: propTypes.object,
+  forecastData: propTypes.array,
 };
 
 const Container = styled.div`
@@ -64,7 +53,16 @@ const Container = styled.div`
   z-index: 10;
   /* background-color: white; */
   /* width: 100%; */
-  @media screen and (max-width: 640px) {
+  .weather-header {
+    position: absolute;
+    color: ${palette.blue};
+    display: flex;
+    /* flex-direction: row; */
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  @media screen and (max-width: ${breakpoints.tablet_md}) {
     width: 100%;
   }
 `;
@@ -75,7 +73,7 @@ const BackgroundImage = styled.img`
   height: auto;
 `;
 
-const ForcastContainer = styled.div`
+const ForecastContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -86,70 +84,42 @@ const ForcastContainer = styled.div`
   position: relative;
   top: -3px;
 
-  @media screen and (max-width: 640px) {
+  @media screen and (max-width: ${breakpoints.tablet_md}) {
     width: 100%;
   }
 `;
 
-const ForcastCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: ${palette.darkGrey};
-  background-color: ${palette.white};
-  padding: 15px 20px 25px 20px;
-  /* width: 100%; */
-  flex-grow: 1;
+// const ForecastCard = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   color: ${palette.darkGrey};
+//   background-color: ${palette.white};
+//   padding: 15px 20px 25px 20px;
+//   /* width: 100%; */
+//   flex-grow: 1;
 
-  border-left: 1px solid lightgrey;
+//   border-left: 1px solid lightgrey;
 
-  :nth-child(1) {
-    border-left: none;
-  }
+//   &:nth-child(1) {
+//     border-left: none;
+//   }
 
-  .day {
-    font-weight: 900;
-    font-size: 0.8rem;
-    padding-bottom: 10px;
-  }
+//   .day {
+//     font-weight: 900;
+//     font-size: 0.8rem;
+//     padding-bottom: 10px;
+//   }
 
-  .temp {
-    font-size: 1.5rem;
-  }
-  /* prioritizing flex box to make up 20% of container when it can */
-  @media screen and (max-width: 640px) {
-    flex-basis: 20%;
-    border: 1px solid lightgrey;
-  }
-`;
-
-const WeatherHeaderContainer = styled.div`
-  /* margin: 10px 0 0 30px; */
-  position: absolute;
-  color: ${palette.blue};
-  display: flex;
-  /* flex-direction: row; */
-  justify-content: space-between;
-  width: 100%;
-
-  .weather_Status {
-    display: flex;
-    margin: 10px 0 0 30px;
-  }
-
-  p {
-    font-size: 3rem;
-  }
-
-  ul {
-    margin: 20px 0 0 10px;
-  }
-  li {
-    font-size: 0.85rem;
-    text-transform: capitalize;
-    padding-bottom: 4px;
-  }
-`;
+//   .temp {
+//     font-size: 1.5rem;
+//   }
+//   /* prioritizing flex box to make up 20% of container when it can */
+//   @media screen and (max-width: ${breakpoints.tablet_md}) {
+//     flex-basis: 20%;
+//     border: 1px solid lightgrey;
+//   }
+// `;
 
 export default Card;

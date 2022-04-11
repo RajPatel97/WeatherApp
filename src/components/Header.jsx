@@ -1,18 +1,26 @@
-import styled from "styled-components";
-import Proptypes from "prop-types";
-import { MdLocationPin } from "react-icons/md";
-import { palette } from "../constants/colors";
+import React from 'react';
+import styled from 'styled-components';
+import propTypes from 'prop-types';
+import { MdLocationPin } from 'react-icons/md';
 
-const Header = ({ location, date }) => {
+import { palette } from '../constants/colors';
+
+const Header = ({ city, state, date }) => {
   return (
     <Container>
       <h3>
         <MdLocationPin />
-        {location}
+        {city + ', ' + state}
       </h3>
       <p>{date}</p>
     </Container>
   );
+};
+
+Header.propTypes = {
+  city: propTypes.string.isRequired,
+  state: propTypes.string.isRequired,
+  date: propTypes.string.isRequired,
 };
 
 const Container = styled.div`

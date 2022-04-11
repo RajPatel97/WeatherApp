@@ -1,6 +1,7 @@
+import React from "react";
 import styled from "styled-components";
 
-//the cloud on the right side
+//this cloud starts on the right side
 const CloudOne = (props) => (
   <Container
     className="cloud-one"
@@ -23,7 +24,7 @@ const CloudOne = (props) => (
   </Container>
 );
 
-//the cloud on the left side
+//this cloud starts on the left side
 const CloudTwo = (props) => (
   <Container
     className="cloud-two"
@@ -77,10 +78,6 @@ const Container = styled.svg`
   }
   &.cloud-two {
     animation: move-around2 35s infinite;
-  }
-
-  @media screen and (max-width: 640px) {
-    /* visibility: hidden; */
   }
 `;
 

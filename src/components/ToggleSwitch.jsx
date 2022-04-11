@@ -1,11 +1,13 @@
+import React from "react";
 import styled from "styled-components";
+
 import { palette } from "../constants/colors";
 
 const ToggleSwitch = () => {
   return (
     <Toggle>
-      <input id="my-toggle" className="toggle__input" type="checkbox" />
-      <div className="toggle__slider">
+      <input id="my-toggle" className="toggle-input" type="checkbox" />
+      <div className="toggle-slider">
         <p className="symbol left">&#176;C</p>
         <p className="symbol right">&#176;F</p>
       </div>
@@ -39,10 +41,10 @@ const Toggle = styled.label`
     margin: 0 0 0 2px;
   }
 
-  .toggle__input {
+  .toggle-input {
     display: none;
 
-    &:checked + .toggle__slider {
+    &:checked + .toggle-slider {
       /* background: #54acd2; */
       background: ${palette.blue};
       .left {
@@ -57,7 +59,7 @@ const Toggle = styled.label`
     }
   }
 
-  .toggle__slider {
+  .toggle-slider {
     width: 2.9em;
     height: 1.2em;
     background: #ccc;
