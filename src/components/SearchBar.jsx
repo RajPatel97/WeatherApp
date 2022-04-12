@@ -6,6 +6,10 @@ import propTypes from 'prop-types';
 import { breakpoints } from '../constants/mixins';
 import { palette } from '../constants/colors';
 
+/**
+ * @description this component is used to get new weather date
+ * from user's input. the input is used to make new api calls with the location entered.
+ */
 const SearchBar = ({ setSearchCity, setSearchState }) => {
   const [input, setInput] = React.useState('');
 
@@ -47,7 +51,7 @@ const Container = styled.div`
   align-items: center;
   cursor: pointer;
   background: none;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 
   .search-icon {
     visibility: visible;

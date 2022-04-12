@@ -1,42 +1,50 @@
-const api_key = '036dc318eaf64824ab25928d372ec697';
+const api_key = '';
 
-const getWeather = (searchState, searchCity, isMetric) => {
+/**
+ * @description this function is used to get the weather data from the APIs.
+ * fetches the current weather and forecast data for the location entered.
+ *
+ * @param {string} city - the city name
+ * @param {string} state - the state name
+ * @param {bool} isMetric - whether the user wants metric or imperial units
+ * @returns {object} - an object with the current and 5 day forecast data.
+ */
+const getWeather = (state, city, isMetric) => {
   let units = isMetric ? 'M' : 'I';
-
   let currentWeatherAPI = fetch(
-    `https://api.weatherbit.io/v2.0/current?city=${searchCity},${searchState}&units=${units}&key=${api_key}`
+    `https://api.weatherbit.io/v2.0/current?city=${city},${state}&units=${units}&key=${api_key}`
   );
   let forecastWeatherAPI = fetch(
-    `https://api.weatherbit.io/v2.0/forecast/daily?city=${searchCity},${searchState}&units=${units}&key=${api_key}`
+    `https://api.weatherbit.io/v2.0/forecast/daily?city=${city},${state}&units=${units}&key=${api_key}`
   );
 
   return Promise.all([currentWeatherAPI, forecastWeatherAPI])
     .then((values) => Promise.all(values.map((value) => value.json())))
     .then((data) => {
-      const [currentData, forecastData] = data;
+      const [currentWeatherData, forecastWeatherData] = data;
 
       if (
-        currentData.error ||
-        forecastData.error ||
-        !currentData.data[0] ||
-        forecastData.data.length < 7
+        currentWeatherData.error ||
+        forecastWeatherData.error ||
+        !currentWeatherData.data[0] ||
+        forecastWeatherData.data.length < 7
       ) {
-        throw new Error(currentData.error);
+        throw new Error(currentWeatherData.error);
       }
 
       const currentWeather = {
-        city: currentData.data[0].city_name,
-        state: currentData.data[0].state_code,
-        country: currentData.data[0].country_code,
-        temp: Math.round(currentData.data[0].temp),
-        icon: currentData.data[0].weather.code,
-        description: currentData.data[0].weather.description,
-        wind_spd: currentData.data[0].wind_spd, // convert m/s to mph
+        city: currentWeatherData.data[0].city_name,
+        state: currentWeatherData.data[0].state_code,
+        country: currentWeatherData.data[0].country_code,
+        temp: Math.round(currentWeatherData.data[0].temp),
+        icon: currentWeatherData.data[0].weather.code,
+        description: currentWeatherData.data[0].weather.description,
+        wind_spd: currentWeatherData.data[0].wind_spd,
       };
 
       return {
         currentData: currentWeather,
-        forecastData: forecastData.data.slice(1, 6),
+        forecastData: forecastWeatherData.data.slice(1, 6),
       };
     });
 };

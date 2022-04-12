@@ -5,6 +5,10 @@ import { MdLocationPin } from 'react-icons/md';
 
 import { palette } from '../constants/colors';
 
+/**
+ * @description this component is used to render the current
+ * location and date of the weather date being displayed.
+ */
 const Header = ({ city, state, date }) => {
   return (
     <Container>
@@ -28,7 +32,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   color: ${palette.white};
-  margin: 0 0 25px 0;
+  margin: 0 0 2rem 0;
 
   h3 {
     font-size: 1.1rem;

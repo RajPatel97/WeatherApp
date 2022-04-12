@@ -1,91 +1,82 @@
 import React from 'react';
 import styled from 'styled-components';
-import { WiDayRainWind } from 'react-icons/wi';
 import propTypes from 'prop-types';
 
-import { palette } from '../constants/colors';
 import Dallas from '../assets/Dallas.png';
 import ToggleSwitch from './ToggleSwitch';
 import { breakpoints } from '../constants/mixins';
 import WeatherCard from '../ui-components/WeatherCard';
 import WeatherStatus from '../ui-components/WeatherStatus';
 
+/**
+ * @description - This component is the main container for the weather app.
+ * all weather data is passed in as props and distributed to the child components.
+ */
 const Card = ({ currentWeather, forecastData, isMetric, setIsMetric }) => {
   return (
     <Container>
-      <div className="weather-header">
-        <WeatherStatus
-          temp={currentWeather.temp}
-          wind={currentWeather.wind}
-          weatherCondition={currentWeather.weatherCondition}
-          iconCode={currentWeather.iconCode}
-          isMetric={isMetric}
-        >
-          <WiDayRainWind size={70}></WiDayRainWind>
-        </WeatherStatus>
-        <ToggleSwitch isMetric={isMetric} setIsMetric={setIsMetric} />
-      </div>
+      <WeatherStatus
+        temp={currentWeather.temp}
+        wind={currentWeather.wind}
+        weatherCondition={currentWeather.weatherCondition}
+        iconCode={currentWeather.iconCode}
+        isMetric={isMetric}
+      />
+      <ToggleSwitch isMetric={isMetric} setIsMetric={setIsMetric} />
 
-      <BackgroundImage src={Dallas} />
+      <Image src={Dallas} />
 
-      <ForecastContainer>
+      <div className="forecast-container">
         {forecastData.map((day) => (
           <WeatherCard
             key={day.ts}
             day={new Date(day.ts * 1000).toLocaleDateString('en-US', {
-              weekday: 'long',
+              weekday: 'short',
             })}
             temp={day.temp}
             iconCode={day.weather.code}
-          ></WeatherCard>
+          />
         ))}
-      </ForecastContainer>
+      </div>
     </Container>
   );
 };
 
 Card.propTypes = {
-  currentWeather: propTypes.object,
-  forecastData: propTypes.array,
-  isMetric: propTypes.bool,
-  setIsMetric: propTypes.func,
+  currentWeather: propTypes.object.isRequired,
+  forecastData: propTypes.array.isRequired,
+  isMetric: propTypes.bool.isRequired,
+  setIsMetric: propTypes.func.isRequired,
 };
 
 const Container = styled.div`
+  /* position: relative; */
   filter: drop-shadow(0 0 0.5rem #707070);
   z-index: 10;
-  .weather-header {
-    position: absolute;
-    color: ${palette.blue};
+
+  .forecast-container {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
     width: 100%;
+    /* eliminate the gap between the image and the forecast cards  */
+    z-index: -1;
+    position: relative;
+    top: -3px;
   }
 
   @media screen and (max-width: ${breakpoints.tablet_md}) {
     width: 100%;
+    position: relative;
+    .forecast-container {
+      width: 100%;
+    }
   }
 `;
 
-const BackgroundImage = styled.img`
+const Image = styled.img`
   /* making the image fit with the width */
   width: 100%;
   height: auto;
-`;
-
-const ForecastContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-
-  /* going to eliminate the gap between the image and the forecast cards  */
-  z-index: -1;
-  position: relative;
-  top: -3px;
-
-  @media screen and (max-width: ${breakpoints.tablet_md}) {
-    width: 100%;
-  }
 `;
 
 export default Card;

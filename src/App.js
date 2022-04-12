@@ -10,6 +10,12 @@ import getWeather from './util/api';
 import SearchBar from './components/SearchBar';
 
 function App() {
+  //setting default location  to Dallas TX
+  //different states for searching and setting location incase there are errors when searching or getting data
+  const [searchCity, setSearchCity] = useState('Dallas');
+  const [searchState, setSearchState] = useState('TX');
+  const [displayCity, setDisplayCity] = useState('Dallas');
+  const [displayState, setDisplayState] = useState('TX');
   const [isMobileScreen, setIsMobileScreen] = useState(false);
   const [isMetric, setIsMetric] = useState(true);
   const [forecastData, setForecastData] = useState([]);
@@ -18,13 +24,11 @@ function App() {
     weatherCondition: 'Loading...',
     wind: 'Loading...',
   });
-  //setting default location  to Dallas TX
-  const [searchCity, setSearchCity] = useState('Dallas');
-  const [searchState, setSearchState] = useState('TX');
-  //different incase there are errors when searching or getting data
-  const [displayCity, setDisplayCity] = useState('Dallas');
-  const [displayState, setDisplayState] = useState('TX');
 
+  /**
+   * @description - This function is used to get the screen size and set the state.
+   * used to determine if the screen is a mobile screen or not.
+   */
   const getScreenSize = () => {
     if (window.innerWidth < 700) {
       setIsMobileScreen(true);
@@ -35,8 +39,9 @@ function App() {
 
   useEffect(() => {
     getScreenSize();
-    window.addEventListener('resize', getScreenSize);
+    window.addEventListener('resize', getScreenSize); //listen for screen size changes
 
+    //grabbing the data from the api and settings the state with appropriate data
     getWeather(searchState, searchCity, isMetric).then((data) => {
       setDisplayCity(data.currentData.city);
       setDisplayState(data.currentData.state);
@@ -50,6 +55,7 @@ function App() {
 
       setForecastData(data.forecastData);
     });
+    //listening to screensize changes, if toggleswitch is toggled, and if there is a new input if the searchbar
   }, [isMobileScreen, isMetric, searchCity, searchState]);
 
   return (
@@ -61,6 +67,7 @@ function App() {
           setSearchState={setSearchState}
           setSearchCity={setSearchCity}
         />
+
         <Header
           city={displayCity}
           state={displayState}

@@ -1,16 +1,16 @@
-import React from "react";
-import propTypes from "prop-types";
-import styled from "styled-components";
+import React from 'react';
+import propTypes from 'prop-types';
+import styled from 'styled-components';
 
-import { palette } from "../constants/colors";
-import { breakpoints } from "../constants/mixins";
-import getIcon from "../util/getIcons";
+import { palette } from '../constants/colors';
+import { breakpoints } from '../constants/mixins';
+import getIcon from '../util/getIcons';
 
-const WeatherCard = ({
-  day = "Loading...",
-  iconCode = 200,
-  temp = "Loading...",
-}) => {
+/**
+ * @description this component is used to render the weather forecast for
+ * the next 1 day. weather data is passed in as props.
+ */
+const WeatherCard = ({ day = 'Loading...', iconCode, temp = 'Loading...' }) => {
   return (
     <Container>
       <p className="day">{day}</p>
@@ -22,7 +22,7 @@ const WeatherCard = ({
 
 WeatherCard.propTypes = {
   day: propTypes.string.isRequired,
-  iconCode: propTypes.number,
+  iconCode: propTypes.number.isRequired,
   temp: propTypes.number.isRequired,
 };
 
@@ -34,7 +34,6 @@ const Container = styled.div`
   color: ${palette.darkGrey};
   background-color: ${palette.white};
   padding: 15px 20px 25px 20px;
-  /* width: 100%; */
   flex-grow: 1;
   border-left: 1px solid lightgrey;
 
@@ -45,14 +44,13 @@ const Container = styled.div`
   .day {
     font-weight: 900;
     font-size: 0.8rem;
-    padding-bottom: 10px;
   }
 
   .temp {
     font-size: 1.5rem;
   }
 
-  /* prioritizing flex box to make up 20% of container when it can */
+  /* prioritizing flex box to make up more space when it can */
   @media screen and (max-width: ${breakpoints.tablet_md}) {
     flex-basis: 20%;
     border: 1px solid lightgrey;

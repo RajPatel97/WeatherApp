@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   WiThunderstorm,
   WiStormShowers,
@@ -11,8 +11,16 @@ import {
   WiMoonAltFull,
   WiCloud,
   WiCloudy,
-} from "react-icons/wi";
+} from 'react-icons/wi';
 
+/**
+ * @description this function is used to get the icon for the weather condition
+ *
+ * @param {number} iconCode - the weather condition code from the API
+ * @param {string} color - the color of the icon
+ * @param {number} size - the size of the icon
+ * @returns {React.ReactElement} - the icon for the weather condition
+ */
 const getIcon = (iconCode, color, size) => {
   switch (iconCode) {
     case 200:
@@ -68,6 +76,8 @@ const getIcon = (iconCode, color, size) => {
       return <WiCloudy color={color} size={size} />;
     case 900:
       return <WiRain color={color} size={size} />;
+    default:
+      return <WiMoonAltFull color={color} size={size} />;
   }
 };
 
