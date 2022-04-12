@@ -6,22 +6,21 @@ import Card from './components/Card';
 import Header from './components/Header';
 import { palette } from './constants/colors';
 import { CloudOne, CloudTwo } from './icons/Clouds';
-import { breakpoints } from './constants/mixins';
 import getWeather from './util/api';
+import SearchBar from './components/SearchBar';
 
 function App() {
   const [isMobileScreen, setIsMobileScreen] = useState(false);
-  // const [units] = useState("I");
+  const [isMetric, setIsMetric] = useState(true);
   const [forecastData, setForecastData] = useState([]);
   const [currentWeather, setCurrentWeather] = useState({
     temp: 'Loading...',
     weatherCondition: 'Loading...',
     wind: 'Loading...',
-    // iconCode: 200,
   });
   //setting default location  to Dallas TX
-  // const [seatchCity] = useState("Dallas");
-  // const [searchState] = useState("TX");
+  const [searchCity, setSearchCity] = useState('Dallas');
+  const [searchState, setSearchState] = useState('TX');
   //different incase there are errors when searching or getting data
   const [displayCity, setDisplayCity] = useState('Dallas');
   const [displayState, setDisplayState] = useState('TX');
@@ -36,8 +35,9 @@ function App() {
 
   useEffect(() => {
     getScreenSize();
+    window.addEventListener('resize', getScreenSize);
 
-    getWeather().then((data) => {
+    getWeather(searchState, searchCity, isMetric).then((data) => {
       setDisplayCity(data.currentData.city);
       setDisplayState(data.currentData.state);
 
@@ -50,14 +50,17 @@ function App() {
 
       setForecastData(data.forecastData);
     });
-  }, [window.innerWidth]);
+  }, [isMobileScreen, isMetric, searchCity, searchState]);
 
   return (
     <div>
       <Container>
         {!isMobileScreen && <CloudOne />}
         {!isMobileScreen && <CloudTwo />}
-
+        <SearchBar
+          setSearchState={setSearchState}
+          setSearchCity={setSearchCity}
+        />
         <Header
           city={displayCity}
           state={displayState}
@@ -69,7 +72,12 @@ function App() {
           })}
         />
 
-        <Card currentWeather={currentWeather} forecastData={forecastData} />
+        <Card
+          currentWeather={currentWeather}
+          forecastData={forecastData}
+          isMetric={isMetric}
+          setIsMetric={setIsMetric}
+        />
       </Container>
     </div>
   );
@@ -82,9 +90,5 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  /* margin-top: 100px; */
-  /* @media screen and (max-width: ${breakpoints.tablet_md}) {
-    width: 100vw;
-  } */
 `;
 export default App;

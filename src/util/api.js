@@ -1,9 +1,8 @@
-const api_key = '';
-const searchCity = 'Dallas';
-const searchState = 'TX';
-const units = 'I';
+const api_key = '036dc318eaf64824ab25928d372ec697';
 
-const getWeather = () => {
+const getWeather = (searchState, searchCity, isMetric) => {
+  let units = isMetric ? 'M' : 'I';
+
   let currentWeatherAPI = fetch(
     `https://api.weatherbit.io/v2.0/current?city=${searchCity},${searchState}&units=${units}&key=${api_key}`
   );

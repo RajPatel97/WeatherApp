@@ -1,18 +1,30 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import propTypes from 'prop-types';
+import styled from 'styled-components';
 
-import { palette } from "../constants/colors";
+import { palette } from '../constants/colors';
 
-const ToggleSwitch = () => {
+const ToggleSwitch = ({ isMetric, setIsMetric }) => {
   return (
     <Toggle>
       <input id="my-toggle" className="toggle-input" type="checkbox" />
-      <div className="toggle-slider">
+      <div
+        onClick={() => {
+          //switching the units displayed
+          setIsMetric(!isMetric);
+        }}
+        className="toggle-slider"
+      >
         <p className="symbol left">&#176;C</p>
         <p className="symbol right">&#176;F</p>
       </div>
     </Toggle>
   );
+};
+
+ToggleSwitch.propTypes = {
+  isMetric: propTypes.bool.isRequired,
+  setIsMetric: propTypes.func.isRequired,
 };
 
 const Toggle = styled.label`
@@ -71,7 +83,7 @@ const Toggle = styled.label`
     justify-content: space-between;
 
     &:before {
-      content: "";
+      content: '';
       width: 1.2em;
       height: 1.2em;
       background: ${palette.white};

@@ -4,14 +4,22 @@ import propTypes from 'prop-types';
 import getIcon from '../util/getIcons';
 import { palette } from '../constants/colors';
 
-const WeatherStatus = ({ temp, iconCode, weatherCondition, wind }) => {
+const WeatherStatus = ({
+  temp,
+  iconCode,
+  weatherCondition,
+  wind,
+  isMetric,
+}) => {
   return (
     <Container>
       <p>{Math.floor(temp)}&#176;</p>
       {getIcon(iconCode, palette.blue, 90)}
       <ul>
         <li>{weatherCondition}</li>
-        <li>{wind}</li>
+        <li className="speed">{`${Math.floor(wind)} ${
+          isMetric ? 'm/s' : 'mph'
+        }`}</li>
       </ul>
     </Container>
   );
@@ -22,6 +30,7 @@ WeatherStatus.propTypes = {
   weatherCondition: propTypes.string.isRequired,
   wind: propTypes.any.isRequired,
   iconCode: propTypes.number,
+  isMetric: propTypes.bool,
 };
 
 const Container = styled.div`
@@ -40,6 +49,10 @@ const Container = styled.div`
     font-size: 0.85rem;
     text-transform: capitalize;
     padding-bottom: 4px;
+    font-weight: 900;
+  }
+  .speed {
+    text-transform: lowercase;
   }
 `;
 
