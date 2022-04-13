@@ -23,7 +23,7 @@ const SearchBar = ({ setSearchCity, setSearchState }) => {
 
   return (
     <Container>
-      <form onSubmit={handleSubmit} action="get">
+      <form onSubmit={handleSubmit}>
         <Search
           value={input}
           onInput={(e) => setInput(e.target.value)}

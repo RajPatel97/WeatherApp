@@ -10,7 +10,7 @@ import getIcon from '../util/getIcons';
  * @description this component is used to render the weather forecast for
  * the next 1 day. weather data is passed in as props.
  */
-const WeatherCard = ({ day = 'Loading...', iconCode, temp = 'Loading...' }) => {
+const WeatherCard = ({ day, iconCode, temp }) => {
   return (
     <Container>
       <Day>{day}</Day>
@@ -28,7 +28,7 @@ WeatherCard.propTypes = {
 
 const Day = styled.p`
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 700;
 `;
 
 const Temp = styled.p`

@@ -1,4 +1,4 @@
-const api_key = '87cf0bbd1f0e4cd497d2654f64b667e3';
+const api_key = 'c8353c6a3e534249b29a5a37f440811f';
 
 /**
  * @description this function is used to get the weather data from the APIs.
@@ -29,6 +29,9 @@ const getWeather = (state, city, isMetric) => {
         !currentWeatherData.data[0] ||
         forecastWeatherData.data.length < 7
       ) {
+        alert(
+          'There was an error retrieving the weather data. Please try again.'
+        );
         throw new Error(currentWeatherData.error);
       }
 

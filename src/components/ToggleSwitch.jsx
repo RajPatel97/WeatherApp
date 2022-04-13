@@ -76,7 +76,6 @@ const Slider = styled.div`
 
 const Input = styled.input`
   display: none;
-
   &:checked + div {
     background: ${palette.blue};
     &:before {

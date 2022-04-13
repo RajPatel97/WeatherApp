@@ -16,11 +16,7 @@ function App() {
   const [isMetric, setIsMetric] = useState(true);
   // used to store the data from the api call for the forecast weather of the given location
   const [forecastData, setForecastData] = useState([]);
-  const [currentWeather, setCurrentWeather] = useState({
-    temp: 'Loading...',
-    weatherCondition: 'Loading...',
-    wind: 'Loading...',
-  });
+  const [currentWeather, setCurrentWeather] = useState({});
 
   useEffect(() => {
     // grabbing the data from the api and settings the state with appropriate data

@@ -65,9 +65,6 @@ const Container = styled.div`
 
   @media screen and (max-width: ${breakpoints.tablet_md}) {
     width: 100%;
-    .forecast-container {
-      width: 100%;
-    }
   }
 `;
 
