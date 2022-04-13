@@ -1,4 +1,4 @@
-const api_key = '';
+const api_key = '87cf0bbd1f0e4cd497d2654f64b667e3';
 
 /**
  * @description this function is used to get the weather data from the APIs.
@@ -10,11 +10,11 @@ const api_key = '';
  * @returns {object} - an object with the current and 5 day forecast data.
  */
 const getWeather = (state, city, isMetric) => {
-  let units = isMetric ? 'M' : 'I';
-  let currentWeatherAPI = fetch(
+  const units = isMetric ? 'M' : 'I';
+  const currentWeatherAPI = fetch(
     `https://api.weatherbit.io/v2.0/current?city=${city},${state}&units=${units}&key=${api_key}`
   );
-  let forecastWeatherAPI = fetch(
+  const forecastWeatherAPI = fetch(
     `https://api.weatherbit.io/v2.0/forecast/daily?city=${city},${state}&units=${units}&key=${api_key}`
   );
 

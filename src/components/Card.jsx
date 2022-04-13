@@ -2,31 +2,32 @@ import React from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 
-import Dallas from '../assets/Dallas.png';
+import Dallas from '../assets/dallas.png';
 import ToggleSwitch from './ToggleSwitch';
 import { breakpoints } from '../constants/mixins';
-import WeatherCard from '../ui-components/WeatherCard';
-import WeatherStatus from '../ui-components/WeatherStatus';
+import WeatherCard from './WeatherCard';
+import WeatherStatus from './WeatherStatus';
 
 /**
  * @description - This component is the main container for the weather app.
  * all weather data is passed in as props and distributed to the child components.
  */
 const Card = ({ currentWeather, forecastData, isMetric, setIsMetric }) => {
+  const { temp, iconCode, weatherCondition, wind } = currentWeather;
   return (
     <Container>
-      <WeatherStatus
-        temp={currentWeather.temp}
-        wind={currentWeather.wind}
-        weatherCondition={currentWeather.weatherCondition}
-        iconCode={currentWeather.iconCode}
-        isMetric={isMetric}
-      />
+      {!isNaN(temp) && (
+        <WeatherStatus
+          temp={temp}
+          wind={wind}
+          weatherCondition={weatherCondition}
+          iconCode={iconCode}
+          isMetric={isMetric}
+        />
+      )}
       <ToggleSwitch isMetric={isMetric} setIsMetric={setIsMetric} />
-
-      <Image src={Dallas} />
-
-      <div className="forecast-container">
+      <Image src={Dallas} alt="Dallas skyline" />
+      <Forecast>
         {forecastData.map((day) => (
           <WeatherCard
             key={day.ts}
@@ -37,7 +38,7 @@ const Card = ({ currentWeather, forecastData, isMetric, setIsMetric }) => {
             iconCode={day.weather.code}
           />
         ))}
-      </div>
+      </Forecast>
     </Container>
   );
 };
@@ -49,24 +50,23 @@ Card.propTypes = {
   setIsMetric: propTypes.func.isRequired,
 };
 
-const Container = styled.div`
-  /* position: relative; */
-  filter: drop-shadow(0 0 0.5rem #707070);
-  z-index: 10;
+const Forecast = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  /* eliminate the gap between the image and the forecast cards  */
+  z-index: -1;
+  position: relative;
+  top: -3px;
+`;
 
-  .forecast-container {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    /* eliminate the gap between the image and the forecast cards  */
-    z-index: -1;
-    position: relative;
-    top: -3px;
-  }
+const Container = styled.div`
+  position: relative;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
+  z-index: 10;
 
   @media screen and (max-width: ${breakpoints.tablet_md}) {
     width: 100%;
-    position: relative;
     .forecast-container {
       width: 100%;
     }

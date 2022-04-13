@@ -9,7 +9,6 @@ import { breakpoints } from '../constants/mixins';
 /**
  * @description this component is used to render the current weather date for the
  * location being displayed. This component is meant to be rendered on top of teh main card component.
- *
  */
 const WeatherStatus = ({
   temp,
@@ -20,53 +19,46 @@ const WeatherStatus = ({
 }) => {
   return (
     <Container>
-      <p>{Math.floor(temp)}&#176;</p>
+      <Temp>{Math.floor(temp)}&#176;</Temp>
       {getIcon(iconCode, palette.blue, 90)}
       <ul>
-        <li>{weatherCondition}</li>
-        <li className="wind-speed">{`${Math.floor(wind)} ${
-          isMetric ? 'm/s' : 'mph'
-        }`}</li>
+        <ListItem>{weatherCondition}</ListItem>
+        <ListItem lowercase={true}>
+          {`${Math.floor(wind)} ${isMetric ? 'm/s' : 'mph'}`}
+        </ListItem>
       </ul>
     </Container>
   );
 };
 
 WeatherStatus.propTypes = {
-  temp: propTypes.any.isRequired,
+  temp: propTypes.number.isRequired,
   weatherCondition: propTypes.string.isRequired,
   wind: propTypes.any.isRequired,
-  iconCode: propTypes.any,
+  iconCode: propTypes.number,
   isMetric: propTypes.bool.isRequired,
 };
+
+const Temp = styled.p`
+  font-size: 3rem;
+`;
+
+const ListItem = styled.li`
+  font-size: 0.85rem;
+  text-transform: ${(props) => (props.lowercase ? 'lowercase' : 'capitalize')};
+  padding-bottom: 4px;
+  font-weight: 900;
+`;
 
 const Container = styled.div`
   position: absolute;
   color: ${palette.blue};
-  /* width: 100%; */
   display: flex;
-  margin: 10px 0 0 30px;
-
-  p {
-    font-size: 3rem;
-  }
-
-  ul {
-    margin: 20px 0 0 10px;
-  }
-
-  li {
-    font-size: 0.85rem;
-    text-transform: capitalize;
-    padding-bottom: 4px;
-    font-weight: 900;
-  }
-  .wind-speed {
-    text-transform: lowercase;
-  }
+  align-items: center;
+  left: 30px;
 
   @media screen and (max-width: ${breakpoints.tablet_md}) {
-    margin: 5px 0 0 10px;
+    left: 10px;
   }
 `;
 

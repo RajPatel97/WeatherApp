@@ -10,14 +10,11 @@ import getWeather from './util/api';
 import SearchBar from './components/SearchBar';
 
 function App() {
-  //setting default location  to Dallas TX
-  //different states for searching and setting location incase there are errors when searching or getting data
-  const [searchCity, setSearchCity] = useState('Dallas');
-  const [searchState, setSearchState] = useState('TX');
-  const [displayCity, setDisplayCity] = useState('Dallas');
-  const [displayState, setDisplayState] = useState('TX');
-  const [isMobileScreen, setIsMobileScreen] = useState(false);
+  // setting default location  to Dallas TX
+  const [city, setCity] = useState('Dallas');
+  const [state, setState] = useState('TX');
   const [isMetric, setIsMetric] = useState(true);
+  // used to store the data from the api call for the forecast weather of the given location
   const [forecastData, setForecastData] = useState([]);
   const [currentWeather, setCurrentWeather] = useState({
     temp: 'Loading...',
@@ -25,71 +22,48 @@ function App() {
     wind: 'Loading...',
   });
 
-  /**
-   * @description - This function is used to get the screen size and set the state.
-   * used to determine if the screen is a mobile screen or not.
-   */
-  const getScreenSize = () => {
-    if (window.innerWidth < 700) {
-      setIsMobileScreen(true);
-    } else {
-      setIsMobileScreen(false);
-    }
-  };
-
   useEffect(() => {
-    getScreenSize();
-    window.addEventListener('resize', getScreenSize); //listen for screen size changes
-
-    //grabbing the data from the api and settings the state with appropriate data
-    getWeather(searchState, searchCity, isMetric).then((data) => {
-      setDisplayCity(data.currentData.city);
-      setDisplayState(data.currentData.state);
-
+    // grabbing the data from the api and settings the state with appropriate data
+    getWeather(state, city, isMetric).then((data) => {
+      setCity(data.currentData.city);
+      setState(data.currentData.state);
       setCurrentWeather({
         temp: data.currentData.temp,
         weatherCondition: data.currentData.description,
         wind: data.currentData.wind_spd,
         iconCode: data.currentData.icon,
       });
-
       setForecastData(data.forecastData);
     });
-    //listening to screensize changes, if toggleswitch is toggled, and if there is a new input if the searchbar
-  }, [isMobileScreen, isMetric, searchCity, searchState]);
+    // listening to toggleswitch and if there is a new input if the searchbar
+  }, [isMetric, state, city]);
 
   return (
-    <div>
-      <Container>
-        {!isMobileScreen && <CloudOne />}
-        {!isMobileScreen && <CloudTwo />}
-        <SearchBar
-          setSearchState={setSearchState}
-          setSearchCity={setSearchCity}
-        />
-
-        <Header
-          city={displayCity}
-          state={displayState}
-          date={new Date().toLocaleString('en-us', {
-            weekday: 'long',
-            month: 'short',
-            day: 'numeric',
-            year: 'numeric',
-          })}
-        />
-
-        <Card
-          currentWeather={currentWeather}
-          forecastData={forecastData}
-          isMetric={isMetric}
-          setIsMetric={setIsMetric}
-        />
-      </Container>
-    </div>
+    <Container>
+      <CloudOne />
+      <CloudTwo />
+      <SearchBar setSearchState={setState} setSearchCity={setCity} />
+      <Header
+        city={city}
+        state={state}
+        date={new Date().toLocaleString('en-us', {
+          weekday: 'long',
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric',
+        })}
+      />
+      <Card
+        currentWeather={currentWeather}
+        forecastData={forecastData}
+        isMetric={isMetric}
+        setIsMetric={setIsMetric}
+      />
+    </Container>
   );
 }
 const Container = styled.div`
+  position: relative;
   color: ${palette.white};
   display: flex;
   flex-direction: column;
@@ -97,5 +71,6 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+  overflow: hidden;
 `;
 export default App;
