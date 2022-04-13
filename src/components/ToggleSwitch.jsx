@@ -11,7 +11,7 @@ import { palette } from '../constants/colors';
 const ToggleSwitch = ({ isMetric, setIsMetric }) => {
   return (
     <Toggle>
-      <Input className="toggle-input" type="checkbox" />
+      <Input type="checkbox" />
       <Slider
         onClick={() => {
           //switching the units displayed

@@ -55,7 +55,6 @@ const Forecast = styled.div`
   flex-wrap: wrap;
   width: 100%;
   /* eliminate the gap between the image and the forecast cards  */
-  z-index: -1;
   position: relative;
   top: -3px;
 `;
@@ -63,7 +62,6 @@ const Forecast = styled.div`
 const Container = styled.div`
   position: relative;
   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
-  z-index: 10;
 
   @media screen and (max-width: ${breakpoints.tablet_md}) {
     width: 100%;

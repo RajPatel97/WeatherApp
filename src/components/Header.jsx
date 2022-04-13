@@ -12,10 +12,10 @@ import { palette } from '../constants/colors';
 const Header = ({ city, state, date }) => {
   return (
     <Container>
-      <h3>
+      <Location>
         <MdLocationPin />
         {`${city}, ${state}`}
-      </h3>
+      </Location>
       <Date>{date}</Date>
     </Container>
   );
@@ -33,12 +33,12 @@ const Container = styled.div`
   flex-direction: column;
   color: ${palette.white};
   margin: 0 0 2rem 0;
+`;
 
-  h3 {
-    font-size: 1.1rem;
-    margin: 0 0 5px 0;
-    font-weight: 600;
-  }
+const Location = styled.h3`
+  font-size: 1.1rem;
+  margin: 0 0 5px 0;
+  font-weight: 600;
 `;
 
 const Date = styled.p`

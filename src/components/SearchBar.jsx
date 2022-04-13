@@ -45,7 +45,6 @@ SearchBar.propTypes = {
 
 const Search = styled.input`
   transition: 100ms;
-  opacity: 0;
   width: 0px;
   color: ${palette.white};
   font-size: 0.8rem;
@@ -59,10 +58,7 @@ const Search = styled.input`
 `;
 
 const Container = styled.div`
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
-  background: none;
   margin-bottom: 1.5rem;
 
   form {
@@ -79,6 +75,7 @@ const Container = styled.div`
       border-color: white;
       transition: 700ms;
       width: 100%;
+      border-bottom: 1px solid ${palette.white};
       visibility: visible;
     }
   }
