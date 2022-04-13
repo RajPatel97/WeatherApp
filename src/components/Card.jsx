@@ -72,6 +72,7 @@ const Image = styled.img`
   /* making the image fit with the width */
   width: 100%;
   height: auto;
+  border-radius: 3px 3px 0 0;
 `;
 
 export default Card;

@@ -67,7 +67,7 @@ const getIcon = (iconCode, color, size) => {
     case 751:
       return <WiCloudyWindy color={color} size={size} />;
     case 800:
-      return <WiMoonAltFull color={color} size={size} />; //need to find a better icon! for clear sky
+      return <WiMoonAltFull color={color} size={size} />;
     case 801:
       return <WiCloud color={color} size={size} />;
     case 802:

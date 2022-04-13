@@ -39,6 +39,7 @@ const Degree = styled.p`
   font-weight: 900;
   transition: 300ms;
   padding: 2px;
+  margin-right: 2px;
   color: ${(props) => props.color || palette.blue};
 `;
 

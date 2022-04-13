@@ -48,12 +48,18 @@ const Container = styled.div`
 
   &:nth-child(1) {
     border-left: none;
+    border-bottom-left-radius: 3px;
+  }
+  &:nth-child(5) {
+    border-bottom-right-radius: 3px;
   }
 
   /* prioritizing flex box to make up more space when it can */
   @media screen and (max-width: ${breakpoints.tablet_md}) {
     flex-basis: 20%;
     border: 1px solid lightgrey;
+    /* to override the specificity of teh nth-child rules */
+    border-radius: 0 !important;
   }
 `;
 
