@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 
-import Dallas from '../assets/dallas.png';
+import Dallas from '../assets/Dallas.png';
 import ToggleSwitch from './ToggleSwitch';
 import { breakpoints } from '../constants/mixins';
 import WeatherCard from './WeatherCard';
