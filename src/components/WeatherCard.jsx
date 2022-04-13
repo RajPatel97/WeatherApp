@@ -13,9 +13,9 @@ import getIcon from '../util/getIcons';
 const WeatherCard = ({ day = 'Loading...', iconCode, temp = 'Loading...' }) => {
   return (
     <Container>
-      <p className="day">{day}</p>
+      <Day>{day}</Day>
       {getIcon(iconCode, palette.blue, 70)}
-      <p className="temp">{Math.floor(temp)}&#176;</p>
+      <Temp>{Math.floor(temp)}&#176;</Temp>
     </Container>
   );
 };
@@ -25,6 +25,15 @@ WeatherCard.propTypes = {
   iconCode: propTypes.number.isRequired,
   temp: propTypes.number.isRequired,
 };
+
+const Day = styled.p`
+  font-size: 0.8rem;
+  font-weight: 600;
+`;
+
+const Temp = styled.p`
+  font-size: 1.5rem;
+`;
 
 const Container = styled.div`
   display: flex;
@@ -39,15 +48,6 @@ const Container = styled.div`
 
   &:nth-child(1) {
     border-left: none;
-  }
-
-  .day {
-    font-weight: 900;
-    font-size: 0.8rem;
-  }
-
-  .temp {
-    font-size: 1.5rem;
   }
 
   /* prioritizing flex box to make up more space when it can */

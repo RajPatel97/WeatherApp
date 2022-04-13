@@ -1,4 +1,4 @@
-const api_key = '';
+const api_key = '70763fc372ac4d1b95a8a57a3419875a';
 
 /**
  * @description this function is used to get the weather data from the APIs.

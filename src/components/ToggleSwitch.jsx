@@ -19,8 +19,12 @@ const ToggleSwitch = ({ isMetric, setIsMetric }) => {
         }}
         className="toggle-slider"
       >
-        <p className="symbol left">&#176;C</p>
-        <p className="symbol right">&#176;F</p>
+        <Degree className="left" color={palette.blue}>
+          &#176;C
+        </Degree>
+        <Degree className="right" color={palette.white}>
+          &#176;F
+        </Degree>
       </div>
     </Toggle>
   );
@@ -31,29 +35,23 @@ ToggleSwitch.propTypes = {
   setIsMetric: propTypes.func.isRequired,
 };
 
+const Degree = styled.p`
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 9;
+  font-size: 0.75rem;
+  font-weight: 900;
+  transition: 300ms;
+  padding: 2px;
+  color: ${(props) => props.color || palette.blue};
+`;
+
 const Toggle = styled.label`
   position: absolute;
   right: 80px;
   top: 20px;
   cursor: pointer;
-
-  .symbol {
-    position: relative;
-    display: flex;
-    align-items: center;
-    z-index: 9;
-    font-size: 0.8rem;
-    font-weight: 900;
-    margin: 0 5px 0 5px;
-    transition: 300ms;
-  }
-  .right {
-    color: ${palette.white};
-  }
-  .left {
-    color: ${palette.blue};
-    margin: 0 0 0 1px;
-  }
 
   .toggle-input {
     display: none;
@@ -67,7 +65,7 @@ const Toggle = styled.label`
         color: ${palette.blue};
       }
       &:before {
-        left: 2rem; //start
+        left: 2rem;
       }
     }
   }

@@ -15,24 +15,22 @@ const SearchBar = ({ setSearchCity, setSearchState }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let res = input.split(/[, ]+/, 2); //regex to split on commas and spaces, multi word city names have to be entered without a space in between
-    console.log(res);
-    setSearchCity(res[0]);
-    setSearchState(res[1]);
+    const [city, state] = input.split(/[, ]+/, 2); //regex to split on commas and spaces, multi word city names have to be entered without a space in between
+    setSearchCity(city);
+    setSearchState(state);
     setInput('');
-    // console.log(input.split(/[, ]+/));
   };
 
   return (
     <Container>
       <form onSubmit={handleSubmit} action="get">
-        <input
+        <Search
           value={input}
           onInput={(e) => setInput(e.target.value)}
           type="text"
           placeholder="Enter a City and State"
         />
-        <div onClick={handleSubmit} className="search-icon">
+        <div onClick={handleSubmit}>
           <AiOutlineSearch size={20} />
         </div>
       </form>
@@ -45,21 +43,33 @@ SearchBar.propTypes = {
   setSearchState: propTypes.func.isRequired,
 };
 
+const Search = styled.input`
+  transition: 100ms;
+  opacity: 0;
+  width: 0px;
+  color: ${palette.white};
+  font-size: 0.8rem;
+  background: none;
+  border: none;
+  outline: none;
+
+  &::placeholder {
+    color: ${palette.darkGrey};
+  }
+`;
+
 const Container = styled.div`
-  display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   background: none;
   margin-bottom: 1.5rem;
 
-  .search-icon {
-    visibility: visible;
-  }
   form {
     display: flex;
   }
 
+  /* hover has to occur over the whole container to allow the input to show itself  */
   &:hover,
   &:active,
   &:focus-within {
@@ -71,20 +81,6 @@ const Container = styled.div`
       width: 100%;
       visibility: visible;
     }
-  }
-
-  input {
-    ::placeholder {
-      color: ${palette.darkGrey};
-    }
-    transition: 100ms;
-    opacity: 0;
-    width: 0px;
-    color: ${palette.white};
-    font-size: 0.8rem;
-    background: none;
-    border: none;
-    outline: none;
   }
 
   @media screen and (max-width: ${breakpoints.tablet_md}) {

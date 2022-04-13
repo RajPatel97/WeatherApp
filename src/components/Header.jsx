@@ -14,9 +14,9 @@ const Header = ({ city, state, date }) => {
     <Container>
       <h3>
         <MdLocationPin />
-        {city + ', ' + state}
+        {`${city}, ${state}`}
       </h3>
-      <p>{date}</p>
+      <Date>{date}</Date>
     </Container>
   );
 };
@@ -39,11 +39,10 @@ const Container = styled.div`
     margin: 0 0 5px 0;
     font-weight: 600;
   }
+`;
 
-  p {
-    font-size: 0.85rem;
-    /* font-weight: 200; */
-  }
+const Date = styled.p`
+  font-size: 0.85rem;
 `;
 
 export default Header;
