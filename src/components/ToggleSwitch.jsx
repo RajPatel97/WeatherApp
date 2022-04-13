@@ -49,7 +49,6 @@ const Toggle = styled.label`
   cursor: pointer;
 `;
 
-<<<<<<< HEAD
 const Slider = styled.div`
   width: 2.9rem;
   height: 1.2rem;
@@ -60,24 +59,6 @@ const Slider = styled.div`
   transition: 300ms cubic-bezier(0.785, 0.135, 0.15, 0.86);
   display: flex;
   justify-content: space-between;
-=======
-  .toggle-input {
-    display: none;
-
-    &:checked + .toggle-slider {
-      background: ${palette.blue};
-      .left {
-        color: ${palette.white};
-      }
-      .right {
-        color: ${palette.blue};
-      }
-      &:before {
-        left: 2rem;
-      }
-    }
-  }
->>>>>>> d7f3f33caa5fc7b3fce4b0d8fff544e4364823be
 
   &:before {
     content: '';
@@ -102,18 +83,6 @@ const Input = styled.input`
       left: 2rem;
     }
   }
-`;
-
-const Degree = styled.p`
-  position: relative;
-  display: flex;
-  align-items: center;
-  z-index: 9;
-  font-size: 0.75rem;
-  font-weight: 900;
-  transition: 300ms;
-  padding: 2px;
-  color: ${(props) => props.color || palette.blue};
 `;
 
 export default ToggleSwitch;
