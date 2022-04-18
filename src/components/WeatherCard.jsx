@@ -36,6 +36,7 @@ const Temp = styled.p`
 `;
 
 const Container = styled.div`
+  z-index: -1;
   display: flex;
   flex-direction: column;
   align-items: center;

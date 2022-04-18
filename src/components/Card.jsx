@@ -73,6 +73,7 @@ const Image = styled.img`
   width: 100%;
   height: auto;
   border-radius: 3px 3px 0 0;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
 `;
 
 export default Card;

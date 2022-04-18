@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { palette } from '../constants/colors';
+import { breakpoints } from '../constants/mixins';
 
 /**
  * @description this component is used to toggle the unit of measurement
@@ -48,6 +49,11 @@ const Toggle = styled.label`
   right: 80px;
   top: 20px;
   cursor: pointer;
+
+  @media screen and (max-width: ${breakpoints.phone_sm}) {
+    left: 30px;
+    top: 100px;
+  }
 `;
 
 const Slider = styled.div`
