@@ -49,6 +49,10 @@ const getWeather = (state, city, isMetric) => {
         currentData: currentWeather,
         forecastData: forecastWeatherData.data.slice(1, 6),
       };
+    })
+    .catch((e) => {
+      console.log(e);
+      alert('Error fetching data! Please enter another valid city and state.');
     });
 };
 

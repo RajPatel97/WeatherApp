@@ -57,11 +57,11 @@ const Forecast = styled.div`
   /* eliminate the gap between the image and the forecast cards  */
   position: relative;
   top: -3px;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
 `;
 
 const Container = styled.div`
   position: relative;
-  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
 
   @media screen and (max-width: ${breakpoints.tablet_md}) {
     width: 100%;
